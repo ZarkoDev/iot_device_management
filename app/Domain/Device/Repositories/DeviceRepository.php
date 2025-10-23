@@ -28,9 +28,11 @@ class DeviceRepository implements DeviceRepositoryInterface
         return Device::where('serial_number', $serialNumber)->first();
     }
 
-    public function findByUser(User $user): Collection
+    public function findByUser(User $user, int $deviceId): ?Device
     {
-        return Device::where('user_id', $user->id)->get();
+        return Device::where('user_id', $user->id)
+            ->where('id', $deviceId)
+            ->first();
     }
 
     public function paginateByUser(User $user, int $perPage = 15): LengthAwarePaginator

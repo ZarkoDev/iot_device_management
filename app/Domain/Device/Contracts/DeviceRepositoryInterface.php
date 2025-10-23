@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Repository contract for Device domain operations.
- * 
+ *
  * This interface defines the contract for device data access operations,
  * ensuring proper device ownership and data isolation.
  */
@@ -30,7 +30,7 @@ interface DeviceRepositoryInterface
     /**
      * Get all devices for a specific user.
      */
-    public function findByUser(User $user): Collection;
+    public function findByUser(User $user, int $deviceId): ?Device;
 
     /**
      * Get paginated devices for a specific user.

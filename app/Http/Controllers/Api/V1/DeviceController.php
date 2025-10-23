@@ -69,9 +69,9 @@ class DeviceController extends Controller
     public function show(int $id, Request $request): JsonResponse
     {
         $user = $request->user();
-        $device = $this->deviceRepository->findById($id);
+        $device = $this->deviceRepository->findByUser($user, $id);
 
-        if (!$device || $device->user_id !== $user->id) {
+        if (!$device) {
             return response()->json(['message' => 'Device not found'], 404);
         }
 
@@ -86,9 +86,9 @@ class DeviceController extends Controller
     public function transfer(int $id, TransferDeviceRequest $request): JsonResponse
     {
         $user = $request->user();
-        $device = $this->deviceRepository->findById($id);
+        $device = $this->deviceRepository->findByUser($user, $id);
 
-        if (!$device || $device->user_id !== $user->id) {
+        if (!$device) {
             return response()->json(['message' => 'Device not found'], 404);
         }
 

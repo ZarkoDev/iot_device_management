@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Domain\Device\Contracts\DeviceRepositoryInterface;
 use App\Domain\Device\Repositories\DeviceRepository;
+use App\Domain\SensorData\Contracts\SensorDataRepositoryInterface;
+use App\Domain\SensorData\Repositories\SensorDataRepository;
 use App\Domain\User\Contracts\UserRepositoryInterface;
 use App\Domain\User\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -23,9 +25,9 @@ class DomainServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Bind repository interfaces to implementations
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(DeviceRepositoryInterface::class, DeviceRepository::class);
+        $this->app->bind(SensorDataRepositoryInterface::class, SensorDataRepository::class);
     }
 
     /**

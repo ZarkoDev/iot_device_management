@@ -24,9 +24,9 @@ class DeviceResource extends JsonResource
             'serial_number' => $this->serial_number,
             'name' => $this->name,
             'is_active' => $this->is_active,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
+            'user_id' => $this->user ? new UserResource($this->user) : null,
         ];
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\LoginController;
+use App\Http\Controllers\Api\V1\DeviceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->group(function () {
-    // Public routes (no authentication required)
+/**
+ * Public routes (no authentication required)
+ */
 
-    // User management
-    Route::apiResource('users', UserController::class)->only(['index', 'store', 'show', 'destroy']);
+// User management
+Route::apiResource('users', UserController::class)->only(['index', 'store', 'show', 'destroy']);
 
-    // Authentication API routes
-    Route::prefix('auth')->group(function (): void {
-        Route::post('/login', [LoginController::class, 'login']);
-        Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
-    });
+// Authentication API routes
+Route::prefix('auth')->group(function (): void {
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+});
 
+
+/**
+ * Protected routes (authentication required)
+ */
+Route::middleware('auth:sanctum')->group(function (): void {
+    // Device management
+    Route::apiResource('devices', DeviceController::class);
+    Route::post('devices/{device}/transfer', [DeviceController::class, 'transfer']);
 });

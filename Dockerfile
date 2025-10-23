@@ -29,10 +29,10 @@ COPY . .
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Install PHP dependencies
-RUN composer install
+# RUN composer install
 
 # Install npm dependencies and build assets
-RUN npm install
+# RUN npm install
 # RUN npm run dev
 
 # Copy and set entrypoint script

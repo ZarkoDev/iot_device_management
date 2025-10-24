@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\SensorDataController;
+use App\Http\Controllers\Api\V1\AlertController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,4 +49,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('sensor-data', [SensorDataController::class, 'index']);
     Route::get('devices/{device}/sensor-data', [SensorDataController::class, 'show']);
     Route::get('devices/{device}/statistics', [SensorDataController::class, 'statistics']);
+
+    // Alert management
+    Route::apiResource('alerts', AlertController::class)->only(['index', 'show']);
+    Route::post('alerts/{alert}/resolve', [AlertController::class, 'resolve']);
 });

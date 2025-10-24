@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Device\Models;
 
+use App\Domain\Alerting\Models\Alert;
+use App\Domain\SensorData\Models\SensorData;
 use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Device model representing an IoT temperature sensor.
@@ -40,6 +43,22 @@ class Device extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get all sensor data recorded by this device.
+     */
+    public function sensorData(): HasMany
+    {
+        return $this->hasMany(SensorData::class);
+    }
+
+    /**
+     * Get all alerts generated for this device.
+     */
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class);
     }
 
     public function scopeActive(Builder $query): Builder

@@ -51,7 +51,7 @@ class SensorData extends Model
 
     /**
      * Check if this temperature reading is within normal range.
-     * Normal range is defined as 0-30 degrees Celsius.
+     * Normal range is defined in config sensors as degrees Celsius.
      */
     public function isWithinNormalRange(): bool
     {
@@ -59,4 +59,11 @@ class SensorData extends Model
             && $this->temperature <= config('sensors.temperature.max');
     }
 
+    /**
+     * Check if this temperature reading should trigger an alert.
+     */
+    public function shouldTriggerAlert(): bool
+    {
+        return !$this->isWithinNormalRange();
+    }
 }

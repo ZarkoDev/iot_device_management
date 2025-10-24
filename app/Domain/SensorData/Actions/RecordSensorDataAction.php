@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\SensorData\Actions;
 
+use App\Domain\Alerting\Actions\CreateAlertAction;
 use App\Domain\Device\Models\Device;
 use App\Domain\SensorData\Contracts\SensorDataRepositoryInterface;
 use App\Domain\SensorData\Models\SensorData;
@@ -16,7 +17,8 @@ use App\Domain\SensorData\Models\SensorData;
 class RecordSensorDataAction
 {
     public function __construct(
-        private readonly SensorDataRepositoryInterface $sensorDataRepository
+        private readonly SensorDataRepositoryInterface $sensorDataRepository,
+        private readonly CreateAlertAction $createAlertAction
     ) {}
 
     /**
@@ -36,6 +38,11 @@ class RecordSensorDataAction
             'temperature' => $temperature,
             'recorded_at' => $recordedAt,
         ]);
+
+        // Check if this reading should trigger an alert
+        if ($sensorData->shouldTriggerAlert()) {
+            $this->createAlertAction->execute($sensorData);
+        }
 
         return $sensorData;
     }

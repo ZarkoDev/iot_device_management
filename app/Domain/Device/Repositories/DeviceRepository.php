@@ -30,7 +30,7 @@ class DeviceRepository implements DeviceRepositoryInterface
 
     public function findByUser(User $user, int $deviceId): ?Device
     {
-        return Device::where('user_id', $user->id)
+        return $user->devices()
             ->where('id', $deviceId)
             ->first();
     }
@@ -64,7 +64,7 @@ class DeviceRepository implements DeviceRepositoryInterface
 
     public function getActiveDevices(): Collection
     {
-        return Device::where('is_active', true)->get();
+        return Device::active()->get();
     }
 
     public function paginate(int $perPage = 15): LengthAwarePaginator

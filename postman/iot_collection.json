@@ -1,0 +1,995 @@
+{
+	"info": {
+		"_postman_id": "47f6224b-e365-4b4f-a01f-8ca4daa62c65",
+		"name": "81.IoT API Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18665902"
+	},
+	"item": [
+		{
+			"name": "01. Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData && jsonData.token) {",
+									"    pm.globals.set(\"TOKEN\", jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/auth/login",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData && jsonData.token) {",
+									"    pm.globals.set(\"TOKEN\", jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/auth/logout",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02. Users",
+			"item": [
+				{
+					"name": "List Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/users",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/users/1",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/users",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/users/3",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "03. Devices",
+			"item": [
+				{
+					"name": "List Devices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Device",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices/2",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "serial_number",
+									"value": "S24",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "samsung front",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "new_owner_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices/3/transfer",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices",
+								"3",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Device",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices/4",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "04. Sensor Data",
+			"item": [
+				{
+					"name": "List Sensors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/sensor-data",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sensor-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Device Sensors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices/1/sensor-data",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices",
+								"1",
+								"sensor-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Statistics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices/1/statistics",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices",
+								"1",
+								"statistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sensor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_serial",
+									"value": "S24",
+									"type": "text"
+								},
+								{
+									"key": "temperature",
+									"value": "49.2",
+									"type": "text"
+								},
+								{
+									"key": "recorded_at",
+									"value": "22-10-2025 19:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/sensor-data",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sensor-data"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "05. Alerts",
+			"item": [
+				{
+					"name": "List Alerts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/alerts",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Alert",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "@Parola123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/alerts/2",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"alerts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resolve",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_serial",
+									"value": "S25",
+									"type": "text"
+								},
+								{
+									"key": "temperature",
+									"value": "25.0",
+									"type": "text"
+								},
+								{
+									"key": "recorded_at",
+									"value": "21-10-2025 18:30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/alerts/1/resolve",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"alerts",
+								"1",
+								"resolve"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

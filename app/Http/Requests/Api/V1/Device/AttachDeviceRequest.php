@@ -7,11 +7,11 @@ namespace App\Http\Requests\Api\V1\Device;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Form Request for transferring device ownership.
+ * Form Request for attaching device ownership.
  *
  * This request handles validation and authorization for device transfer.
  */
-class TransferDeviceRequest extends FormRequest
+class AttachDeviceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class TransferDeviceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'new_owner_id' => ['required', 'integer', 'exists:users,id'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 
@@ -37,8 +37,8 @@ class TransferDeviceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'new_owner_id.required' => 'The new owner ID is required.',
-            'new_owner_id.exists' => 'The selected new owner does not exist.',
+            'user_id.required' => 'The new owner ID is required.',
+            'user_id.exists' => 'The selected new owner does not exist.',
         ];
     }
 }

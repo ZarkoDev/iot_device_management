@@ -10,7 +10,7 @@ use App\Domain\User\Models\User;
 
 /**
  * Action for creating a new device.
- * 
+ *
  * This action encapsulates the business logic for device creation,
  * including ownership assignment and validation.
  */
@@ -22,17 +22,14 @@ class CreateDeviceAction
 
     /**
      * Execute the device creation action.
-     * 
-     * @param User $user The user who will own the device
+     *
      * @param array $data Device data including serial_number and name
      * @return Device The created device
      */
-    public function execute(User $user, array $data): Device
+    public function execute(array $data): Device
     {
-        // Ensure the device is assigned to the user
-        $data['user_id'] = $user->id;
         $data['is_active'] = $data['is_active'] ?? true;
-        
+
         return $this->deviceRepository->create($data);
     }
 }

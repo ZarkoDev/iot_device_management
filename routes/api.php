@@ -27,7 +27,15 @@ use Illuminate\Support\Facades\Route;
 // User management
 Route::apiResource('users', UserController::class)->only(['index', 'store', 'show', 'destroy']);
 
-// Sensor data recording (public endpoint for devices, with purpose!)
+/*
+ * Public endpoints for devices, with purpose!
+ */
+// Device management
+Route::apiResource('devices', DeviceController::class);
+Route::post('devices/{device}/attach', [DeviceController::class, 'attach']);
+Route::post('devices/{device}/detach', [DeviceController::class, 'detach']);
+Route::post('devices/{device}/transfer', [DeviceController::class, 'transfer']);
+// Sensor data recording
 Route::post('sensor-data', [SensorDataController::class, 'store']);
 
 // Authentication API routes
@@ -41,9 +49,6 @@ Route::prefix('auth')->group(function (): void {
  * Protected routes (authentication required)
  */
 Route::middleware('auth:sanctum')->group(function (): void {
-    // Device management
-    Route::apiResource('devices', DeviceController::class);
-    Route::post('devices/{device}/transfer', [DeviceController::class, 'transfer']);
 
     // Sensor data retrieval
     Route::get('sensor-data', [SensorDataController::class, 'index']);

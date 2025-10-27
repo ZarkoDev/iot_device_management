@@ -73,12 +73,4 @@ class Device extends Model
     {
         return $this->is_active;
     }
-
-    /**
-     * Transfer device ownership to another user.
-     */
-    public function transferTo(User $newOwner): void
-    {
-        $this->update(['user_id' => $newOwner->id]);
-    }
 }

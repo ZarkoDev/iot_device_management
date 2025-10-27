@@ -53,9 +53,14 @@ interface DeviceRepositoryInterface
     public function delete(Device $device): bool;
 
     /**
-     * Transfer device ownership to another user.
+     * Attach device ownership to user.
      */
-    public function transferOwnership(Device $device, User $newOwner): Device;
+    public function attach(Device $device, User $user): Device;
+
+    /**
+     * Detach device ownership.
+     */
+    public function detach(Device $device): Device;
 
     /**
      * Get all active devices.

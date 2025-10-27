@@ -56,9 +56,15 @@ class DeviceRepository implements DeviceRepositoryInterface
         return $device->delete();
     }
 
-    public function transferOwnership(Device $device, User $newOwner): Device
+    public function attach(Device $device, User $user): Device
     {
-        $device->transferTo($newOwner);
+        $device->update(['user_id' => $user->id]);
+        return $device->fresh();
+    }
+
+    public function detach(Device $device): Device
+    {
+        $device->update(['user_id' => null]);
         return $device->fresh();
     }
 

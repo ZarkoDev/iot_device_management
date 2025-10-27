@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Domain\Device\Actions\CreateDeviceAction;
-use App\Domain\Device\Actions\TransferDeviceAction;
+use App\Domain\Device\Actions\DetachDeviceAction;
+use App\Domain\Device\Actions\AttachDeviceAction;
 use App\Domain\Device\Contracts\DeviceRepositoryInterface;
 use App\Domain\User\Contracts\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Device\AttachDeviceRequest;
 use App\Http\Requests\Api\V1\Device\CreateDeviceRequest;
-use App\Http\Requests\Api\V1\Device\TransferDeviceRequest;
+use App\Http\Requests\Api\V1\Device\DetachDeviceRequest;
 use App\Http\Resources\Api\V1\DeviceResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,9 +27,10 @@ class DeviceController extends Controller
 {
     public function __construct(
         private readonly DeviceRepositoryInterface $deviceRepository,
-        private readonly UserRepositoryInterface $userRepository,
-        private readonly CreateDeviceAction $createDeviceAction,
-        private readonly TransferDeviceAction $transferDeviceAction
+        private readonly UserRepositoryInterface   $userRepository,
+        private readonly CreateDeviceAction        $createDeviceAction,
+        private readonly AttachDeviceAction        $attachDeviceAction,
+        private readonly DetachDeviceAction        $detachDeviceAction
     ) {}
 
     /**
@@ -35,8 +38,7 @@ class DeviceController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $user = $request->user();
-        $devices = $this->deviceRepository->paginateByUser($user);
+        $devices = $this->deviceRepository->paginate();
 
         return response()->json([
             'data' => DeviceResource::collection($devices->items()),
@@ -54,8 +56,7 @@ class DeviceController extends Controller
      */
     public function store(CreateDeviceRequest $request): JsonResponse
     {
-        $user = $request->user();
-        $device = $this->createDeviceAction->execute($user, $request->validated());
+        $device = $this->createDeviceAction->execute($request->validated());
 
         return response()->json([
             'data' => new DeviceResource($device),
@@ -81,23 +82,41 @@ class DeviceController extends Controller
     }
 
     /**
-     * Transfer device ownership.
+     * Attach device to user.
      */
-    public function transfer(int $id, TransferDeviceRequest $request): JsonResponse
+    public function attach(int $id, AttachDeviceRequest $request): JsonResponse
     {
-        $user = $request->user();
-        $device = $this->deviceRepository->findByUser($user, $id);
+        $device = $this->deviceRepository->findById($id);
 
         if (!$device) {
             return response()->json(['message' => 'Device not found'], 404);
         }
 
-        $newOwner = $this->userRepository->findById((int) $request->input('new_owner_id'));
-        $device = $this->transferDeviceAction->execute($device, $newOwner);
+        $newOwner = $this->userRepository->findById((int) $request->input('user_id'));
+        $device = $this->attachDeviceAction->execute($device, $newOwner);
 
         return response()->json([
             'data' => new DeviceResource($device),
-            'message' => 'Device ownership transferred successfully',
+            'message' => 'Device ownership attached successfully',
+        ]);
+    }
+
+    /**
+     * Detach device from any users.
+     */
+    public function detach(int $id, DetachDeviceRequest $request): JsonResponse
+    {
+        $device = $this->deviceRepository->findById($id);
+
+        if (!$device) {
+            return response()->json(['message' => 'Device not found'], 404);
+        }
+
+        $device = $this->detachDeviceAction->execute($device);
+
+        return response()->json([
+            'data' => new DeviceResource($device),
+            'message' => 'Device ownership detached successfully',
         ]);
     }
 

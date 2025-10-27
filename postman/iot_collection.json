@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "47f6224b-e365-4b4f-a01f-8ca4daa62c65",
-		"name": "81.IoT API Task",
+		"_postman_id": "bba4e635-4226-4221-b6b0-6d298ba6ba2a",
+		"name": "81.IoT Device Management",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18665902"
 	},
@@ -440,7 +440,7 @@
 							"formdata": [
 								{
 									"key": "serial_number",
-									"value": "S24",
+									"value": "S25",
 									"type": "text"
 								},
 								{
@@ -470,7 +470,7 @@
 					"response": []
 				},
 				{
-					"name": "Transfer Device",
+					"name": "Attach Device",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -484,14 +484,14 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "new_owner_id",
-									"value": "2",
+									"key": "user_id",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{APP_URL}}/api/v1/devices/3/transfer",
+							"raw": "{{APP_URL}}/api/v1/devices/1/attach",
 							"host": [
 								"{{APP_URL}}"
 							],
@@ -499,8 +499,39 @@
 								"api",
 								"v1",
 								"devices",
-								"3",
-								"transfer"
+								"1",
+								"attach"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detach Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{APP_URL}}/api/v1/devices/1/detach",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"devices",
+								"1",
+								"detach"
 							]
 						}
 					},
@@ -538,7 +569,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{APP_URL}}/api/v1/devices/4",
+							"raw": "{{APP_URL}}/api/v1/devices/2",
 							"host": [
 								"{{APP_URL}}"
 							],
@@ -546,7 +577,7 @@
 								"api",
 								"v1",
 								"devices",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -651,23 +682,7 @@
 						],
 						"body": {
 							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "test",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "test@test.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "@Parola123",
-									"type": "text"
-								}
-							]
+							"formdata": []
 						},
 						"url": {
 							"raw": "{{APP_URL}}/api/v1/devices/1/sensor-data",
@@ -898,7 +913,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{APP_URL}}/api/v1/alerts/2",
+							"raw": "{{APP_URL}}/api/v1/alerts/1",
 							"host": [
 								"{{APP_URL}}"
 							],
@@ -906,7 +921,7 @@
 								"api",
 								"v1",
 								"alerts",
-								"2"
+								"1"
 							]
 						}
 					},
